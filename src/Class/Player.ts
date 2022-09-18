@@ -55,8 +55,12 @@ export class Player {
      *```
      */
     async searchPlayer(options?: SearchPlayerOptions) {
+        const baseLink = this.link.replace(
+            '<lang>',
+            this.options.language || 'en'
+        );
         const afterLink =
-            this.link.replace('<lang>', this.options.language || 'en') +
+            baseLink +
             `/fo4db?a=0${
                 options?.name
                     ? `&playername=${encodeURIComponent(
@@ -71,7 +75,13 @@ export class Player {
                     : ''
             }${
                 options?.positions ? `&pos=${options.positions.join(',')}` : ''
-            }${options?.teamColor ? `&teamcolor=${options.teamColor}` : ''}${
+            }${
+                options?.teamColor
+                    ? `&teamcolor=${options.teamColor
+                          .filter((v, i) => i <= 2)
+                          .join(',')}`
+                    : ''
+            }${
                 options?.salary
                     ? minMax({
                           value: 'salary',
@@ -115,16 +125,40 @@ export class Player {
                 options?.reputation ? `&reputation=${options?.reputation}` : ''
             }${
                 options?.ovr
-                    ? minMax({
-                          value: 'spos',
-                          min: options.ovr.options?.min,
-                          max: options.ovr.options?.max,
-                          textBefore: options.ovr.type + '_' || 'ovr_',
-                      })
+                    ? options.ovr
+                          .filter((v, i) => i <= 5)
+                          .map((v, i) =>
+                              minMax({
+                                  value: 'orv',
+                                  max: v.options?.max,
+                                  min: v.options?.min,
+                                  textBefore: `${v.type}_`,
+                              })
+                          )
                     : ''
             }${options?.skillMoves ? `&skillmoves=${options.skillMoves}` : ''}${
                 options?.weakFoot ? `&skillmoves=${options.weakFoot}` : ''
-            }${options?.preferFoot ? `&skillmoves=${options.preferFoot}` : ''}`;
+            }${options?.preferFoot ? `&skillmoves=${options.preferFoot}` : ''}${
+                options?.hiddenStats
+                    ? `&trait=${options.hiddenStats
+                          .filter((v, i) => i <= 5)
+                          .join(',')}`
+                    : ''
+            }${
+                options?.attributes
+                    ? options.attributes
+                          .filter((v, i) => i <= 5)
+                          .map((v, i) =>
+                              minMax({
+                                  value: 'attr',
+                                  max: v.options?.max,
+                                  min: v.options?.min,
+                                  textBefore: `${v.type}_`,
+                              })
+                          )
+                    : ''
+            }`;
+
         const resp = await axios.get(afterLink);
         if (resp.status !== 200) throw Error('Api is down');
         const $ = cheerio.load(resp.data);

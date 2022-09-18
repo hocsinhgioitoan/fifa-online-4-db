@@ -5,7 +5,7 @@ export interface SearchPlayerOptions {
     seasons?: SeasonsList[];
     bodyTypes?: BodyType[];
     positions?: PositionList[];
-    teamColor?: TeamColor;
+    teamColor?: TeamColor[];
     salary?: SearchPlayerOptionMinMax;
     height?: SearchPlayerOptionMinMax;
     weight?: SearchPlayerOptionMinMax;
@@ -15,10 +15,12 @@ export interface SearchPlayerOptions {
     defense?: SearchPlayerOptionWorkRate;
     reputation?: ReputationPlayer;
     country?: Country;
-    ovr?: SearchPlayerOptionOVR;
+    ovr?: SearchPlayerOptionTypeAndOption<SearchPlayerOptionOVRType>[];
     skillMoves?: SkillMove;
     preferFoot?: PreferFoot;
     weakFoot?: WeekFoot;
+    hiddenStats?: HiddenStats[];
+    attributes?: SearchPlayerOptionTypeAndOption<Attributes>[]
 }
 
 export type PreferFoot = 'right' | 'left';
@@ -33,8 +35,8 @@ export interface SearchPlayerOptionMinMax {
     max?: number;
 }
 
-export interface SearchPlayerOptionOVR {
-    type?: SearchPlayerOptionOVRType;
+export interface SearchPlayerOptionTypeAndOption<T> {
+    type?: T;
     options?: SearchPlayerOptionMinMax;
 }
 
@@ -437,3 +439,81 @@ export type Country =
     | 'yemen'
     | 'zambia'
     | 'zimbabwe';
+
+export type HiddenStats =
+    | 'acrobatic-clearance'
+    | 'argues-with-officials'
+    | 'avoids-using-weaker-foot'
+    | 'backs-into-player'
+    | 'corner-specialist'
+    | 'diver'
+    | 'dives-into-tackles'
+    | 'early-crosser'
+    | 'finesse-free-kick'
+    | 'finesse-shot'
+    | 'flair'
+    | 'giant-throw-in'
+    | 'gk-cautious-with-crosses'
+    | 'gk-comes-for-crosses'
+    | 'gk-long-thrower'
+    | 'gk-one-on-ones'
+    | 'inflexibility'
+    | 'injury-prone'
+    | 'leadership'
+    | 'long-passer'
+    | 'long-shot-taker'
+    | 'long-throw-in'
+    | 'one-club-player'
+    | 'outside-foot-shot'
+    | 'play-maker'
+    | 'power-header'
+    | 'puncher'
+    | 'pushes-up-for-corners'
+    | 'second-wind'
+    | 'selfish'
+    | 'shooting-chip-shot'
+    | 'solid-player'
+    | 'speed-dribbler'
+    | 'sweeper-keeper'
+    | 'swerve'
+    | 'takes-powerful-driven-free-kicks'
+    | 'target-forward'
+    | 'team-player'
+    | 'technical-dribbler'
+    | 'tries-to-beat-offside-trap';
+
+type Attributes =
+    | 'sprintspeed'
+    | 'acceleration'
+    | 'finishing'
+    | 'shotpower'
+    | 'longshots'
+    | 'positioning'
+    | 'volleys'
+    | 'penalties'
+    | 'shortpassing'
+    | 'vision'
+    | 'crossing'
+    | 'longpassing'
+    | 'freekickaccuracy'
+    | 'curve'
+    | 'dribbling'
+    | 'ballcontrol'
+    | 'agility'
+    | 'balance'
+    | 'reactions'
+    | 'marking'
+    | 'standingtackle'
+    | 'interceptions'
+    | 'headingaccuracy'
+    | 'slidingtackle'
+    | 'strength'
+    | 'stamina'
+    | 'aggression'
+    | 'jumping'
+    | 'composure'
+    | 'gkdiving'
+    | 'gkhandling'
+    | 'gkkicking'
+    | 'gkreflexes'
+    | 'gkpositioning';
