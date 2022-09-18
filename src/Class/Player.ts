@@ -35,7 +35,7 @@ export class Player {
      *         name: 'Phil foden',
      *         seasons: ['22ts']
      *     });
-     *     console.log(data.link);
+     *     console.log(data.data);
      * }
      * get()
      * ```
