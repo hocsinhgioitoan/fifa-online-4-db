@@ -89,9 +89,6 @@ export interface SearchPlayerOptions {
     >[];
 }
 
-export type PreferFoot = 'right' | 'left';
-export type SkillMove = '1' | '2' | '3' | '4' | '5';
-export type WeekFoot = '1' | '2' | '3' | '4' | '5';
 /**
  * Option for Class Player.
  */
@@ -118,7 +115,7 @@ export interface searchPlayerData {
      */
     name: string;
     /**
-     * ID Player to get more info 
+     * ID Player to get more info
      */
     id?: string;
     /**
@@ -143,10 +140,18 @@ export interface searchPlayerData {
         id?: number;
     };
 }
-
+export type PreferFoot = 'right' | 'left';
+export type SkillMove = '1' | '2' | '3' | '4' | '5';
+export type WeekFoot = '1' | '2' | '3' | '4' | '5';
 export class Player {
     constructor(protected options: PlayerOptions);
-    searchPlayer(options?: SearchPlayerOptions): Promise<searchPlayerData[]>;
+    private _resultLink?: string;
+    searchPlayer(options?: SearchPlayerOptions): Promise<PlayerData>;
+}
+
+export interface PlayerData {
+    data: searchPlayerData[];
+    link: string
 }
 export type SearchPlayerOptionOVRType =
     | 'orv'
