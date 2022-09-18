@@ -19,10 +19,8 @@ export class Player {
      * Link to get info about player
      */
     private link: string;
-    private _resultLink?: string;
     constructor(protected options: PlayerOptions) {
         this.link = 'https://<lang>.fifaaddict.com';
-        this._resultLink = undefined;
     }
     /**
      * Find player by options.
@@ -161,7 +159,6 @@ export class Player {
                           )
                     : ''
             }`;
-        this._resultLink = afterLink;
         const resp = await axios.get(afterLink);
         if (resp.status !== 200) throw Error('Api is down');
         const $ = cheerio.load(resp.data);

@@ -145,7 +145,6 @@ export type SkillMove = '1' | '2' | '3' | '4' | '5';
 export type WeekFoot = '1' | '2' | '3' | '4' | '5';
 export class Player {
     constructor(protected options: PlayerOptions);
-    private _resultLink?: string;
     searchPlayer(options?: SearchPlayerOptions): Promise<PlayerData>;
 }
 
