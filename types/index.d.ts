@@ -10,16 +10,21 @@ export interface SearchPlayerOptions {
     height?: SearchPlayerOptionMinMax;
     weight?: SearchPlayerOptionMinMax;
     age?: SearchPlayerOptionMinMax;
-    birthyear?: number;
+    birthYear?: number;
     attack?: SearchPlayerOptionWorkRate;
     defense?: SearchPlayerOptionWorkRate;
     reputation?: ReputationPlayer;
     country?: Country;
     ovr?: SearchPlayerOptionOVR;
-    skillmoves?: SkillMove
+    skillMoves?: SkillMove;
+    preferFoot?: PreferFoot;
+    weakFoot?: WeekFoot;
 }
 
-export type SkillMove = '1' | '2' | '3' | '4' | '5'
+export type PreferFoot = 'right' | 'left';
+export type SkillMove = '1' | '2' | '3' | '4' | '5';
+export type WeekFoot = '1' | '2' | '3' | '4' | '5';
+
 export interface PlayerOptions {
     language: languageList;
 }

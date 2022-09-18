@@ -104,10 +104,10 @@ export class Player {
                       })
                     : ''
             }${
-                options?.birthyear
-                    ? options.birthyear > 2550 || options.birthyear <= 0
+                options?.birthYear
+                    ? options.birthYear > 2550 || options.birthYear <= 0
                         ? `&birthyear=1900`
-                        : `&birthyear=${options.birthyear}`
+                        : `&birthyear=${options.birthYear}`
                     : ''
             }${options?.attack ? `&workrate_att=${options.attack}` : ''}${
                 options?.defense ? `&workrate_def=${options.defense}` : ''
@@ -122,7 +122,9 @@ export class Player {
                           textBefore: options.ovr.type + '_' || 'ovr_',
                       })
                     : ''
-            }${options?.skillmoves ? `&skillmoves=${options.skillmoves}` : ''}`;
+            }${options?.skillMoves ? `&skillmoves=${options.skillMoves}` : ''}${
+                options?.weakFoot ? `&skillmoves=${options.weakFoot}` : ''
+            }${options?.preferFoot ? `&skillmoves=${options.preferFoot}` : ''}`;
         const resp = await axios.get(afterLink);
         if (resp.status !== 200) throw Error('Api is down');
         const $ = cheerio.load(resp.data);
