@@ -1,33 +1,104 @@
 export type languageList = 'en' | 'vn' | 'kr' | 'cn' | 'id' | 'ru' | 'th';
 
 export interface SearchPlayerOptions {
+    /**
+     * The name of the player to look for.
+     */
     name?: string;
+    /**
+     * Season of the player to look for.
+     */
     seasons?: SeasonsList[];
+    /**
+     * Player's Body.
+     */
     bodyTypes?: BodyType[];
+    /**
+     * Player's position.
+     */
     positions?: PositionList[];
+    /**
+     * The player's club.
+     */
     teamColor?: TeamColor[];
+    /**
+     * Player's salary
+     */
     salary?: SearchPlayerOptionMinMax;
+    /**
+     * Player's height
+     */
     height?: SearchPlayerOptionMinMax;
+    /**
+     * Player's weight
+     */
     weight?: SearchPlayerOptionMinMax;
+    /**
+     * Player's age
+     */
     age?: SearchPlayerOptionMinMax;
+    /**
+     * Player's birthyear
+     */
     birthYear?: number;
+    /**
+     * Workrate - Attack
+     */
     attack?: SearchPlayerOptionWorkRate;
+    /**
+     * Workrate = Defense
+     */
     defense?: SearchPlayerOptionWorkRate;
+    /**
+     * Player reputation
+     */
     reputation?: ReputationPlayer;
+    /**
+     * Player's country
+     */
     country?: Country;
-    ovr?: SearchPlayerOptionTypeAndOption<SearchPlayerOptionOVRType>[];
+    /**
+     * Player ovr
+     */
+    ovr?: SearchPlayerOptionTypeAndOption<
+        SearchPlayerOptionOVRType,
+        SearchPlayerOptionMinMax
+    >[];
+    /**
+     * Rate skill
+     */
     skillMoves?: SkillMove;
+    /**
+     * player's dominant foot
+     */
     preferFoot?: PreferFoot;
+    /**
+     * ...
+     */
     weakFoot?: WeekFoot;
+    /**
+     * player's hidden stats
+     */
     hiddenStats?: HiddenStats[];
-    attributes?: SearchPlayerOptionTypeAndOption<Attributes>[]
+    /**
+     * All stats
+     */
+    attributes?: SearchPlayerOptionTypeAndOption<
+        Attributes,
+        SearchPlayerOptionMinMax
+    >[];
 }
 
 export type PreferFoot = 'right' | 'left';
 export type SkillMove = '1' | '2' | '3' | '4' | '5';
 export type WeekFoot = '1' | '2' | '3' | '4' | '5';
-
+/**
+ * Option for Class Player.
+ */
 export interface PlayerOptions {
+    /**
+     * Main language.
+     */
     language: languageList;
 }
 export interface SearchPlayerOptionMinMax {
@@ -35,11 +106,48 @@ export interface SearchPlayerOptionMinMax {
     max?: number;
 }
 
-export interface SearchPlayerOptionTypeAndOption<T> {
+export interface SearchPlayerOptionTypeAndOption<T, O> {
     type?: T;
-    options?: SearchPlayerOptionMinMax;
+    options?: O;
 }
 
+export type SearchPlayerOptionWorkRate = 'mid' | 'low' | 'high';
+export interface searchPlayerData {
+    /**
+     * Name player.
+     */
+    name: string;
+    /**
+     * ID Player to get more info 
+     */
+    id?: string;
+    /**
+     * Image of player
+     */
+    image?: string;
+    /**
+     * Season
+     */
+    season?: {
+        /**
+         * Name season
+         */
+        name?: string;
+        /**
+         * Image Season
+         */
+        image?: string;
+        /**
+         * ID of season
+         */
+        id?: number;
+    };
+}
+
+export class Player {
+    constructor(protected options: PlayerOptions);
+    searchPlayer(options?: SearchPlayerOptions): Promise<searchPlayerData[]>;
+}
 export type SearchPlayerOptionOVRType =
     | 'orv'
     | 'st'
@@ -53,23 +161,6 @@ export type SearchPlayerOptionOVRType =
     | 'rb'
     | 'cb'
     | 'gk';
-
-export type SearchPlayerOptionWorkRate = 'mid' | 'low' | 'high';
-export interface searchPlayerData {
-    name: string;
-    id?: string;
-    image?: string;
-    season?: {
-        name?: string;
-        image?: string;
-        id?: number;
-    };
-}
-
-export class Player {
-    constructor(protected options: PlayerOptions);
-    searchPlayer(options?: SearchPlayerOptions): Promise<searchPlayerData[]>;
-}
 
 export type SeasonsList =
     | 'icon'
