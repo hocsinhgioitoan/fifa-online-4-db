@@ -1,0 +1,31 @@
+{
+  "name": "@hongbeccodeduocchua/fo4-db",
+  "version": "1.1.0",
+  "main": "./dist/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "start": "npm run build:dev && npm run start:node",
+    "start:node": "node .",
+    "test": "npm run build:dev && node dist/test/index",
+    "build:dev": "if [ -d dist ]; then rm -rf dist; npm run build:tsc; else npm run build:tsc; fi",
+    "build:windows": "@echo off && IF exist dist ( rd dist; npm run build:tsc ) ELSE ( npm run build:tsc ) && @echo on",
+    "build:tsc": "tsc -p tsconfig.json",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "docs": "npx typedoc --out docs src/index.ts  "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/cheerio": "^0.22.31",
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
+    "ngrok": "^4.3.3",
+    "typedoc": "^0.23.14",
+    "typedoc-plugin-missing-exports": "^1.0.0"
+  },
+  "devDependencies": {
+    "typedoc-theme-hierarchy": "^3.0.0"
+  }
+}
