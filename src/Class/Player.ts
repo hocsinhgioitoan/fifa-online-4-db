@@ -113,7 +113,16 @@ export class Player {
                 options?.defense ? `&workrate_def=${options.defense}` : ''
             }${options?.country ? `&country=${options.country}` : ''}${
                 options?.reputation ? `&reputation=${options?.reputation}` : ''
-            }`;
+            }${
+                options?.ovr
+                    ? minMax({
+                          value: 'spos',
+                          min: options.ovr.options?.min,
+                          max: options.ovr.options?.max,
+                          textBefore: options.ovr.type + '_' || 'ovr_',
+                      })
+                    : ''
+            }${options?.skillmoves ? `&skillmoves=${options.skillmoves}` : ''}`;
         const resp = await axios.get(afterLink);
         if (resp.status !== 200) throw Error('Api is down');
         const $ = cheerio.load(resp.data);
@@ -144,8 +153,13 @@ export class Player {
         return listPlayers;
     }
 }
-const minMax = (options: { value: string; min?: number; max?: number }) => {
-    return `&${options.value}=${(options.min || 0) <= 0 ? 0 : options.min}${
-        options.max ? `-${(options.max || 0) <= 0 ? 0 : options.max}` : ''
-    }`;
+const minMax = (options: {
+    value: string;
+    min?: number;
+    max?: number;
+    textBefore?: string;
+}) => {
+    return `&${options.value}=${options.textBefore ? options.textBefore : ''}${
+        (options.min || 0) <= 0 ? 0 : options.min
+    }${options.max ? `-${(options.max || 0) <= 0 ? 0 : options.max}` : ''}`;
 };

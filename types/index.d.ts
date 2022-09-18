@@ -15,8 +15,11 @@ export interface SearchPlayerOptions {
     defense?: SearchPlayerOptionWorkRate;
     reputation?: ReputationPlayer;
     country?: Country;
+    ovr?: SearchPlayerOptionOVR;
+    skillmoves?: SkillMove
 }
 
+export type SkillMove = '1' | '2' | '3' | '4' | '5'
 export interface PlayerOptions {
     language: languageList;
 }
@@ -24,6 +27,25 @@ export interface SearchPlayerOptionMinMax {
     min?: number;
     max?: number;
 }
+
+export interface SearchPlayerOptionOVR {
+    type?: SearchPlayerOptionOVRType;
+    options?: SearchPlayerOptionMinMax;
+}
+
+export type SearchPlayerOptionOVRType =
+    | 'orv'
+    | 'st'
+    | 'cf'
+    | 'rw'
+    | 'cm'
+    | 'cam'
+    | 'rm'
+    | 'cdm'
+    | 'rwb'
+    | 'rb'
+    | 'cb'
+    | 'gk';
 
 export type SearchPlayerOptionWorkRate = 'mid' | 'low' | 'high';
 export interface searchPlayerData {
