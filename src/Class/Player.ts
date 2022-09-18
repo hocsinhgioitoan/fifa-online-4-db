@@ -23,7 +23,7 @@ export class Player {
     }
     /**
      * Find player by options.
-     * Ex: 
+     * Ex:
      * Code:
      * ```ts
      * import * as fo4 from '@hongbeccodeduocchua/fo4-db';
@@ -38,7 +38,7 @@ export class Player {
      * }
      * get()
      * ```
-     * Data: 
+     * Data:
      * ```ts
      * [
      *   {
@@ -59,7 +59,9 @@ export class Player {
             this.link.replace('<lang>', this.options.language || 'en') +
             `/fo4db?a=0${
                 options?.name
-                    ? `&playername=${encodeURIComponent(options.name.toLowerCase())}`
+                    ? `&playername=${encodeURIComponent(
+                          options.name.toLowerCase()
+                      )}`
                     : options?.name?.length === 0
                     ? '&order=ovr'
                     : ''
@@ -109,8 +111,9 @@ export class Player {
                     : ''
             }${options?.attack ? `&workrate_att=${options.attack}` : ''}${
                 options?.defense ? `&workrate_def=${options.defense}` : ''
-            }${options?.country ? `&country=${options.country}` : ''}`;
-        console.log(afterLink);
+            }${options?.country ? `&country=${options.country}` : ''}${
+                options?.reputation ? `&reputation=${options?.reputation}` : ''
+            }`;
         const resp = await axios.get(afterLink);
         if (resp.status !== 200) throw Error('Api is down');
         const $ = cheerio.load(resp.data);
