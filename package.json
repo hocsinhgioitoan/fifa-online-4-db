@@ -1,6 +1,6 @@
 {
   "name": "@hongbeccodeduocchua/fo4-db",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "./dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
@@ -16,7 +16,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "This is the package about the player database of fifa online 4.",
+  "bugs": {
+    "url": "https://github.com/aiko-chan-ai/discord.js-selfbot-v13/issues"
+  },
+  "homepage": "https://hocsinhgioitoan.github.io/fifa-online-4-db/index.html",
   "dependencies": {
     "@types/cheerio": "^0.22.31",
     "axios": "^0.27.2",
